@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% block title %}
+   Tao May Ao
+{% endblock %}
+{% block content %}
+<script>
+ function valudateForm(){
+ var x = document.forms["myForm"]["tenmayao"].value;
+ if (x == null || x == "") {
+	alert("Ban Phai Nhap Vao Ten May Ao");
+	return false;
+}
+}
+</script>
+{% if idtenant  %}
+    <form action = "/taomayao"  method = "POST" onsubmit="return validateForm()">{% csrf_token %}
+      <table>
+        <caption>Tao May Ao</caption>
+        <tr>
+           <td>Ten May Ao</td>
+           <td>
+		<input name="tenantid" value="{{idtenant}}" type="hidden"/>
+                <input type = "text" name = "tenmayao">
+           </td>
+        </tr>
+        <tr>
+           <td>Cau hinh phan cung</td>
+           <td>
+           	<select name = "flavor">
+           	  {% for flavor in listflavor %}
+           	    <option value = "{{flavor.getflavorid}}">{{flavor.getflavorname}}</option>
+           	  {%endfor%}
+           	</select>
+           </td>
+        </tr>
+ 	<tr>
+	  <td>Tong So May Ao</td>
+	  <td><input type = 'number' name='count' min ="1" max = "10" value = '1'></td>
+	</tr>
+        <tr>
+           <td>Chon Image</td>
+           <td>
+           	<select name = "image">
+           	  {% for image in listimage %}
+           	    <option value = "{{image.getimageid}}">{{image.getname}}</option>
+           	  {%endfor%}
+           	</select>
+           </td>
+        </tr>
+        <tr>
+           <td>Chon Network</td>
+           <td>
+           	 <select name = "network">
+           	 	{%for network in listnetwork%}
+           	 	 {% if network.gettenant_id == idtenant %}
+           	 	 	<option value = "{{network.getnetwork_id}}">{{network.getcidr}}</option>
+           	 	 {%endif%}
+           	 	{%endfor%}
+           	 </select>
+           </td>
+        </tr>
+        <tr>
+        	<td><input type = "reset" value = "reset"></td>
+        	<td><input type = "submit" name = "taomayao" </td>
+        </tr>
+      </table>
+    </form>
+{% endif %}
+{%if ketqua %}
+  <table>
+    <tr>
+	<td>PassWord May Ao</td>
+	<td>{{ketqua}}</td>
+    </tr>
+ </table>
+{%endif%}
+{%endblock%}
+

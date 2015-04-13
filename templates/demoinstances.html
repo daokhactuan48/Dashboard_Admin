@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Instances
+{% endblock %}
+
+ {% block content %}
+ {# Cac button hien thi may ao #}
+<div class = "row">
+  <div class = "col-md-2 col-md-offset-6"><button class = 'btn btn-default' type = 'submit'>Bat toan bo may ao</button></div>
+  <div class = "col-md-2 "><button class = 'btn btn-default' type = 'submit'>Reset toan bo may ao</button></div>
+  <div class = "col-md-2 "><button class = 'btn btn-default' type = 'submit'>Tat toan bo may ao</button></div>
+</div>
+{# Cac button cua tung tennant#}
+<div class = "row">
+  <div class = "col-md-1" > <button class = 'btn btn-default ' type = 'submit'>Tao May ao</button></div>
+  <div class = "col-md-1 col-md-offset-1"> <button class = 'btn btn-default ' type = 'submit'>Reset toan bo may ao trong Tenant</button></div>
+</div>
+<table class = "table">
+{%for console in listservervsc%}
+<tr>
+ <td>{{console.getservername}}</td>
+ <td><a = href = {{console.geturl}}>Console</a></td>
+</tr>
+{%endfor%}
+</table>
+{% endblock %}
